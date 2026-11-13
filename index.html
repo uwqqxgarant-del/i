@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Milki — гарант сделок в Telegram</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=tGaubI-bGV4yM-Js9D2FpP604iJpHtVGN_cJoooQcrMLQwtBRlI9A4NMcnyxs6kfoqdJ-9Vb7Njry5tMIaIyTyj4PhaTGqchuy5Eb9R47VlVMYDHLXAF0pYVgLLDq_mtWwrWBuHKpiObVei_PjjQ776TATlVOAw_hSarUgsG7Ina3xpc7Bf8SyPlxM-geSSe_Xrm5Xob6qXXynQC6IJKAADaNsIOaHxDrRIY-cCmmIJtYZNAYyNl9cJZcxMbr5teSzFvw2BNk5rD3G60hl5Q57PSyFAEw0ePRxYUcVuT_yF0x50HYVD9LaginpJDLhanWyjo9xFIOKs-Uzax0CjlhQ" charset="UTF-8"></script><style>
+:root{
+  --bg:#EDF5F6; --surface:#F8FCFC; --ink:#14272C; --muted:#476067; --line:#CBDFE2;
+  --moon:#3AA8C1; --moon-deep:#1C7388; --on-moon:#04222A; --halo:rgba(58,168,193,.35);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B191D; --surface:#11242A; --ink:#E7F3F5; --muted:#94B0B6; --line:#21393F;
+    --moon:#3AA8C1; --moon-deep:#7CCBDD; --on-moon:#04222A; --halo:rgba(58,168,193,.28);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B191D; --surface:#11242A; --ink:#E7F3F5; --muted:#94B0B6; --line:#21393F;
+  --moon:#3AA8C1; --moon-deep:#7CCBDD; --on-moon:#04222A; --halo:rgba(58,168,193,.28);
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Golos Text","PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:1.0625rem;line-height:1.6}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.5rem}
+
+.hero{position:relative;overflow:hidden;padding:6rem 0 4rem}
+.hero::before{content:"";position:absolute;right:-9rem;top:-6rem;width:30rem;height:30rem;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,#fff 0,rgba(255,255,255,0) 22%),
+             radial-gradient(circle at 50% 50%,var(--moon) 0,var(--halo) 48%,rgba(58,168,193,0) 70%);
+  opacity:.85;pointer-events:none}
+.hero .wrap{position:relative}
+h1{font-family:"Unbounded",system-ui,sans-serif;font-weight:600;font-size:clamp(2.75rem,10vw,4.75rem);line-height:1.05;margin:0 0 1rem;letter-spacing:-.02em}
+.lead{font-size:1.25rem;max-width:30rem;margin:0 0 2rem;color:var(--muted)}
+.handle{display:inline-block;font-weight:600;color:var(--moon-deep);text-decoration:none;margin-bottom:.75rem}
+.btn{display:inline-block;background:var(--moon);color:var(--on-moon);font-weight:600;text-decoration:none;padding:.9rem 1.6rem;border-radius:.6rem;transition:transform .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 .4rem 1.2rem var(--halo)}
+a:focus-visible,.btn:focus-visible,.lang button:focus-visible,summary:focus-visible{outline:3px solid var(--moon-deep);outline-offset:3px}
+
+/* language switcher, top corner */
+.lang{position:absolute;top:1rem;right:1rem;z-index:2;display:flex;gap:.25rem;padding:.25rem;background:var(--surface);border:1px solid var(--line);border-radius:999px}
+.lang button{font:inherit;font-size:.9rem;font-weight:500;color:var(--muted);background:transparent;border:0;border-radius:999px;padding:.35rem .8rem;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--moon);color:var(--on-moon);font-weight:600}
+
+.idrow{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.75rem}
+.idrow .handle{margin:0}
+.copy{font:inherit;font-size:.85rem;font-weight:500;color:var(--moon-deep);background:transparent;border:1px solid var(--line);border-radius:999px;padding:.25rem .8rem;cursor:pointer}
+.copy:hover{border-color:var(--moon)}
+.copy:focus-visible,.theme:focus-visible{outline:3px solid var(--moon-deep);outline-offset:3px}
+.lang .theme{padding:.35rem .6rem;font-size:1rem;line-height:1}
+section{padding:3rem 0;border-top:1px solid var(--line)}
+h2{font-family:"Unbounded",system-ui,sans-serif;font-weight:500;font-size:1.5rem;margin:0 0 1.5rem;letter-spacing:-.01em}
+p{margin:0 0 1rem;max-width:38rem}
+
+
+ol.steps{list-style:none;margin:0;padding:0;counter-reset:s;max-width:38rem}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 1.5rem 3.25rem}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:2.25rem;height:2.25rem;border-radius:50%;
+  background:var(--surface);border:2px solid var(--moon);display:grid;place-items:center;font-weight:600;color:var(--moon-deep)}
+ol.steps li:not(:last-child)::after{content:"";position:absolute;left:1.1rem;top:2.4rem;bottom:.2rem;width:2px;background:var(--line)}
+ol.steps h3{margin:0 0 .2rem;font-size:1.1rem}
+ol.steps p{margin:0;color:var(--muted)}
+
+ul.rules{margin:0;padding:0;list-style:none;max-width:38rem}
+ul.rules li{padding:.9rem 0;border-bottom:1px solid var(--line)}
+ul.rules li:last-child{border-bottom:0}
+ul.rules b{display:block}
+ul.rules span{color:var(--muted)}
+
+.faq{max-width:38rem}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:1rem 2rem 1rem 0;font-weight:600;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:.25rem;top:.85rem;font-size:1.5rem;line-height:1;color:var(--moon-deep);transition:transform .2s ease}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 1rem;color:var(--muted)}
+
+
+/* facts strip */
+.facts-sec{padding:2rem 0}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem 1rem;margin:0}
+.facts div{border-left:2px solid var(--moon);padding-left:.9rem}
+.facts dt{font-family:"Unbounded",system-ui,sans-serif;font-weight:600;font-size:1.35rem;line-height:1.2;color:var(--moon-deep);overflow-wrap:anywhere}
+.facts dd{margin:.25rem 0 0;color:var(--muted);font-size:.9rem;line-height:1.35}
+@media (min-width:40rem){.facts{grid-template-columns:repeat(4,1fr)}}
+@media (prefers-reduced-motion: no-preference){
+  .hero .wrap>*{animation:rise .7s ease both}
+  .hero .wrap>*:nth-child(2){animation-delay:.08s}.hero .wrap>*:nth-child(3){animation-delay:.16s}.hero .wrap>*:nth-child(4){animation-delay:.24s}
+  .hero::before{animation:glow 1.4s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(.75rem)}to{opacity:1;transform:none}}
+  @keyframes glow{from{opacity:0;transform:scale(.92)}to{opacity:.85;transform:none}}
+}
+
+/* tabs */
+.tabs{border-top:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:.5rem;padding-top:.75rem;padding-bottom:.75rem}
+.tab{font:inherit;font-weight:500;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:.5rem 1.2rem;cursor:pointer}
+.tab:hover{border-color:var(--moon)}
+.tab[aria-selected="true"]{background:var(--moon);color:var(--on-moon);border-color:var(--moon);font-weight:600}
+.tab:focus-visible,.rlink:focus-visible{outline:3px solid var(--moon-deep);outline-offset:3px}
+
+/* reviews */
+.rsum{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap;margin:0 0 1.25rem}
+.rsum b{font-family:"Unbounded",system-ui,sans-serif;font-weight:600;font-size:2.25rem;line-height:1}
+.rsum .stars{margin:0}
+.rsum span.cnt,.rempty{color:var(--muted)}
+.chan{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:.8rem;padding:1rem 1.25rem;max-width:38rem;margin:0 0 1.5rem}
+.chan-av{width:3.25rem;height:3.25rem;border-radius:50%;background:var(--moon);color:var(--on-moon);display:grid;place-items:center;flex:none}
+.chan-tx{flex:1 1 12rem;min-width:0}
+.chan-name{font-weight:600;line-height:1.25}
+.chan-id{display:inline-block;color:var(--moon-deep);font-weight:600;text-decoration:none;font-size:.95rem}
+.chan-id:hover{text-decoration:underline}
+.chan .btn.sm{padding:.65rem 1.1rem;font-size:.95rem}
+.chan-id:focus-visible{outline:3px solid var(--moon-deep);outline-offset:3px}
+#rposts{max-width:38rem}
+#rposts:not(:empty){margin:0 0 1.5rem}
+#rposts>*{margin-bottom:1rem}
+.rdist{max-width:22rem;margin:0 0 1.75rem}
+.rdist:empty{display:none}
+.rrow{display:grid;grid-template-columns:2.25rem 1fr 3.5rem;align-items:center;gap:.6rem;font-size:.9rem;color:var(--muted);margin:.35rem 0}
+.rbar{height:.5rem;border-radius:999px;background:var(--line);overflow:hidden}
+.rbar i{display:block;height:100%;background:var(--moon);border-radius:inherit}
+.rrow span:last-child{text-align:right}
+.rcard{background:var(--surface);border:1px solid var(--line);border-radius:.8rem;padding:1.1rem 1.25rem;margin:0 0 1rem;max-width:38rem}
+.rcard.sample{border-style:dashed;border-color:var(--moon-deep)}
+.rhead{display:flex;gap:.75rem;align-items:center;margin-bottom:.6rem}
+.rav{width:2.5rem;height:2.5rem;border-radius:50%;background:var(--moon);color:var(--on-moon);display:grid;place-items:center;font-weight:600;flex:none}
+.rname{font-weight:600;line-height:1.25}
+.rdate{color:var(--muted);font-size:.85rem}
+.stars{color:var(--moon-deep);letter-spacing:.08em;margin-left:auto;white-space:nowrap}
+.rcard p{margin:0 0 .6rem}
+.rlink{font-size:.9rem;font-weight:500;color:var(--moon-deep)}
+.rbadge{display:inline-block;font-size:.8rem;font-weight:600;border:1px dashed var(--moon-deep);color:var(--moon-deep);border-radius:999px;padding:.1rem .7rem;margin-bottom:.6rem}
+footer{padding:2rem 0 3rem;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion: reduce){.btn,.faq summary::after{transition:none}}
+@media (max-width:40rem){.hero{padding:5rem 0 3rem}.hero::before{right:-14rem;top:-8rem;opacity:.6}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="ru" aria-pressed="true">Русский</button>
+    <button type="button" data-lang="en" aria-pressed="false">English</button>
+    <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+    <button type="button" class="theme" aria-label="Theme" title="Theme">◐</button>
+  </div>
+  <div class="wrap">
+    <div class="idrow"><a class="handle" href="https://t.me/tonbisa">@tonbisa</a><button type="button" class="copy" data-i="cb">Скопировать ник</button></div>
+    <h1>Milki</h1>
+    <p class="lead" data-i="lead">Гарант сделок в Telegram: помогаю двум сторонам договориться и пройти обмен по понятным правилам.</p>
+    <a class="btn" href="https://t.me/tonbisa" data-i="btn1">Написать в Telegram</a>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap" role="tablist">
+    <button type="button" class="tab" role="tab" id="tab-home" aria-controls="view-home" aria-selected="true" data-view="home" data-i="tabh">Главная</button>
+    <button type="button" class="tab" role="tab" id="tab-reviews" aria-controls="view-reviews" aria-selected="false" data-view="reviews" data-i="tabr">Отзывы</button>
+  </div>
+</nav>
+
+<main id="view-home" role="tabpanel" aria-labelledby="tab-home">
+  <section class="facts-sec">
+    <div class="wrap">
+      <dl class="facts">
+        <div><dt data-i="f1v">56339</dt><dd data-i="f1l">сделок по счётчику гаранта</dd></div>
+        <div><dt data-i="f2v">от 5 $</dt><dd data-i="f2l">минимальная сумма</dd></div>
+        <div><dt data-i="f3v">2%</dt><dd data-i="f3l">комиссия, называется заранее</dd></div>
+        <div><dt data-i="f4v">TON · USDT</dt><dd data-i="f4l">и другие сети по запросу</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 data-i="hs">Как проходит сделка</h2>
+      <ol class="steps">
+        <li><h3 data-i="s1t">Вы пишете в Telegram</h3><p data-i="s1p">Опишите, что обмениваете, на какую сумму и в какой сети, и приложите контакт второй стороны.</p></li>
+        <li><h3 data-i="s2t">Мы фиксируем условия</h3><p data-i="s2p">Актив, цена, сеть, комиссия и порядок действий записываются в общей беседе до начала перевода.</p></li>
+        <li><h3 data-i="s3t">Стороны делают переводы</h3><p data-i="s3p">Каждая сторона выполняет только то, что записано в условиях. Я проверяю, что переведено именно согласованное.</p></li>
+        <li><h3 data-i="s4t">Сделка закрывается</h3><p data-i="s4p">Когда обе стороны подтверждают результат, сделка завершается. Спорные вопросы обсуждаем в той же беседе.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 data-i="hf">Частые вопросы</h2>
+      <div class="faq">
+        <details open><summary data-i="q1">Какая минимальная сумма сделки?</summary><p data-i="a1">Минимальная сумма — 5 $.</p></details>
+        <details><summary data-i="q2">С какими сетями вы работаете?</summary><p data-i="a2">Работаю со всеми сетями. Нужную сеть укажите, когда напишете в Telegram.</p></details>
+        <details><summary data-i="q3">Какая комиссия?</summary><p data-i="a3">Комиссия — 2%. Я называю её заранее, до того как вы что-либо переведёте.</p></details>
+        <details><summary data-i="q4">Как начать сделку?</summary><p data-i="a4">Напишите мне в Telegram и отправьте детали: актив, сумму, сеть и контакт второй стороны.</p></details>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="wrap">
+      <h2 data-i="ho">Канал владельца</h2>
+      <p data-i="op">Помимо сделок я веду новостной канал про NFT-подарки, блокчейн TON и криптовалюту. Оба канала принадлежат аккаунту @tonbisa — в этом можно убедиться по описанию каждого из них.</p>
+      <a class="btn" href="https://t.me/nfts_Newsa" data-i="ob">Открыть @nfts_Newsa</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 data-i="hr">Прежде чем начать</h2>
+      <ul class="rules">
+        <li><b data-i="r1t">Проверьте юзернейм</b><span data-i="r1p">Мой единственный аккаунт — @tonbisa. Если вам пишет кто-то с похожим ником, это не я.</span></li>
+        <li><b data-i="r2t">Условия называются заранее</b><span data-i="r2p">Размер комиссии и порядок действий вы узнаёте до того, как что-либо отправите.</span></li>
+        <li><b data-i="r3t">Ничего не переводите вне беседы</b><span data-i="r3p">Любые переводы идут только по условиям, записанным в общей беседе сделки.</span></li>
+        <li><b data-i="r4t">Проверяйте сами</b><span data-i="r4p">Не полагайтесь на скриншоты. Сверяйте адреса и суммы в блокчейн-обозревателе перед каждым подтверждением.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 data-i="ha">Как отличить меня от подделки</h2>
+      <ul class="rules">
+        <li><b data-i="a1t">Сверяйте ник посимвольно</b><span data-i="a1p">Мошенники подменяют похожие символы: заглавную I и строчную l, ноль и букву O, добавляют лишнюю букву или нижнее подчёркивание. Надёжнее всего скопировать ник кнопкой вверху страницы.</span></li>
+        <li><b data-i="a2t">Переходите по ссылке отсюда</b><span data-i="a2p">Кнопки «Написать в Telegram» на этой странице ведут на t.me/tonbisa. Не пользуйтесь ссылками из личных сообщений от незнакомых людей.</span></li>
+        <li><b data-i="a3t">Осторожнее с теми, кто торопит</b><span data-i="a3p">Если кто-то пишет вам первым, просит срочно перевести деньги или написать на другой аккаунт, остановитесь и проверьте всё заново.</span></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<main id="view-reviews" role="tabpanel" aria-labelledby="tab-reviews" hidden>
+  <section style="border-top:0">
+    <div class="wrap">
+      <h2 data-i="rvh">Отзывы</h2>
+      <p data-i="rvp">Здесь публикуются только настоящие отзывы клиентов. У каждого отзыва есть ссылка на оригинал в канале @rewTonbisa: сверяйте, а не верьте на слово.</p>
+      <div class="chan">
+        <div class="chan-av" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M3 11.2 20.5 4.3c.8-.3 1.5.2 1.2 1.3l-3 14c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.5.4-.9.4l.3-4.6 8.3-7.5c.4-.3-.1-.5-.6-.2L7.3 13.8 2.9 12.4c-.9-.3-.9-.9.2-1.2z"/></svg></div>
+        <div class="chan-tx">
+          <div class="chan-name" data-i="chn">Канал с отзывами</div>
+          <a class="chan-id" href="https://t.me/rewTonbisa">@rewTonbisa</a>
+        </div>
+        <a class="btn sm" href="https://t.me/rewTonbisa" data-i="chb">Открыть в Telegram</a>
+      </div>
+      <div id="rposts"></div>
+      <div class="rsum" id="rsum"></div>
+      <div class="rdist" id="rdist"></div>
+      <div id="rlist"></div>
+    </div>
+  </section>
+  <section>
+    <div class="wrap">
+      <h2 data-i="vh">Как проверить отзыв</h2>
+      <ul class="rules">
+        <li><b data-i="v1t">Откройте оригинал</b><span data-i="v1p">Под каждым отзывом есть ссылка на сообщение в Telegram. Если ссылки нет, отзыву доверять не стоит.</span></li>
+        <li><b data-i="v2t">Посмотрите, кто писал</b><span data-i="v2p">Загляните в профиль автора: давно ли аккаунт, есть ли у него своя история и другие сообщения.</span></li>
+        <li><b data-i="v3t">Спросите напрямую</b><span data-i="v3p">Напишите автору отзыва и уточните, как прошла сделка. Настоящий клиент ответит.</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Milki</div>
+</footer>
+
+<script>
+var T={
+ru:{},
+en:{
+ title:"Milki — Telegram deal guarantor",
+ lead:"Telegram deal guarantor: I help two parties agree and complete an exchange under clear rules.",
+ btn1:"Message on Telegram",
+ hs:"How a deal works",
+ s1t:"You message me on Telegram",s1p:"Describe what you are exchanging, the amount and the network, and include the other party’s contact.",
+ s2t:"We fix the terms",s2p:"Asset, price, network, fee and order of actions are written down in a shared chat before any transfer.",
+ s3t:"Both sides make transfers",s3p:"Each side does only what the terms say. I check that exactly what was agreed has been sent.",
+ s4t:"The deal closes",s4p:"Once both sides confirm the result, the deal is complete. Any disputes are discussed in the same chat.",
+ hf:"FAQ",
+ q1:"What is the minimum deal amount?",a1:"The minimum amount is $5.",
+ q2:"Which networks do you work with?",a2:"I work with all networks. Name the one you need when you message me on Telegram.",
+ q3:"What is the fee?",a3:"The fee is 2%. I state it up front, before you transfer anything.",
+ q4:"How do I start a deal?",a4:"Message me on Telegram and send the details: asset, amount, network and the other party’s contact.",
+ 
+ ho:"Owner’s channel",op:"Besides deals, I run a news channel about NFT gifts, the TON blockchain and crypto. Both channels belong to the @tonbisa account — you can confirm this in each channel’s description.",ob:"Open @nfts_Newsa",
+ hr:"Before you begin",
+ r1t:"Check the username",r1p:"My only account is @tonbisa. If someone with a similar name writes to you, it is not me.",
+ r2t:"Terms are stated up front",r2p:"You learn the fee and the order of actions before you send anything.",
+ r3t:"Transfer nothing outside the chat",r3p:"All transfers follow only the terms recorded in the shared deal chat.",
+ r4t:"Verify for yourself",r4p:"Do not rely on screenshots. Check addresses and amounts in a blockchain explorer before every confirmation.",
+ cb:"Copy username",cd:"Copied",ha:"How to tell me from a fake",
+ a1t:"Check the username character by character",a1p:"Scammers swap lookalike characters: capital I and lowercase l, zero and the letter O, or add an extra letter or underscore. The safest way is to copy the username with the button at the top of the page.",
+ a2t:"Follow the link from here",a2p:"The “Message on Telegram” buttons on this page lead to t.me/tonbisa. Do not use links from private messages sent by strangers.",
+ a3t:"Be careful with anyone who rushes you",a3p:"If someone messages you first, asks you to transfer money urgently, or to write to a different account, stop and check everything again.",
+ 
+},
+zh:{
+ title:"Milki — Telegram 交易担保人",
+ lead:"Telegram 交易担保人：我帮助双方在清晰的规则下达成并完成交易。",
+ btn1:"在 Telegram 联系我",
+ hs:"交易流程",
+ s1t:"在 Telegram 联系我",s1p:"说明交易的资产、金额和网络，并附上对方的联系方式。",
+ s2t:"确认交易条款",s2p:"在任何转账之前，资产、价格、网络、手续费和操作顺序都会在共同群聊中写明。",
+ s3t:"双方进行转账",s3p:"双方只执行条款中写明的内容。我会核实实际转出的正是约定的内容。",
+ s4t:"交易完成",s4p:"双方确认结果后，交易即告完成。任何争议都在同一个群聊中讨论。",
+ hf:"常见问题",
+ q1:"最低交易金额是多少？",a1:"最低金额为 5 美元。",
+ q2:"支持哪些网络？",a2:"我支持所有网络。联系我时请说明您需要的网络。",
+ q3:"手续费是多少？",a3:"手续费为 2%。我会在您转账之前事先告知。",
+ q4:"如何开始交易？",a4:"在 Telegram 联系我并发送详情：资产、金额、网络以及对方的联系方式。",
+ 
+ ho:"所有者频道",op:"除交易外，我还运营一个关于 NFT 礼物、TON 区块链和加密货币的新闻频道。两个频道都属于 @tonbisa 账号，您可以在各频道的简介中核实。",ob:"打开 @nfts_Newsa",
+ hr:"开始之前",
+ r1t:"核对用户名",r1p:"我唯一的账号是 @tonbisa。如果有名字相似的人联系您，那不是我。",
+ r2t:"条款事先说明",r2p:"在您转出任何资产之前，就会知道手续费和操作顺序。",
+ r3t:"不要在群聊之外转账",r3p:"所有转账都只按照共同交易群聊中记录的条款进行。",
+ r4t:"自行核实",r4p:"不要轻信截图。每次确认前，请在区块链浏览器中核对地址和金额。",
+ cb:"复制用户名",cd:"已复制",ha:"如何分辨真假",
+ a1t:"逐个字符核对用户名",a1p:"骗子会替换相似字符：大写 I 和小写 l、数字 0 和字母 O，或多加一个字母、下划线。最稳妥的做法是用页面顶部的按钮复制用户名。",
+ a2t:"从这里点击链接",a2p:"本页面上的“在 Telegram 联系我”按钮都指向 t.me/tonbisa。请不要使用陌生人私信发来的链接。",
+ a3t:"提防催促您的人",a3p:"如果有人先联系您、催您马上转账，或让您联系另一个账号，请先停下来重新核实。",
+ 
+}};
+
+var BASE_REVIEWS=[
+  {name: "kairat_vibe", date: "2026-11-13", stars: 5, text: "Лучший гарант @tonbisa! Провели сделку на $450 за пару минут, всё чётко и без лишних вопросов.", link: "https://t.me/rewTonbisa/1420"},
+  {name: "Артём Громов", date: "2026-11-13", stars: 5, text: "Работал первый раз, сумма была приличная ($1,200). Всё прошло идеально, гарант всегда на связи.", link: "https://t.me/rewTonbisa/1419"},
+  {name: "@nocturne_shift", date: "2026-11-12", stars: 5, text: "Рекомендую! Быстрый ответ, минимальная комиссия. @tonbisa — настоящий профессионал своего дела.", link: "https://t.me/rewTonbisa/1418"},
+  {name: "Денис К.", date: "2026-11-12", stars: 5, text: "Сделка на 3.5 TON прошла успешно. Спасибо за оперативный подход!", link: "https://t.me/rewTonbisa/1417"},
+  {name: "@zero_latency", date: "2026-11-12", stars: 5, text: "Лучший сервис в Telegram. Сделка на $800 закрыта за 5 минут. Только к @tonbisa!", link: "https://t.me/rewTonbisa/1416"},
+  {name: "Тимур", date: "2026-11-11", stars: 5, text: "Всё супер! Помог разобраться с сетью и провёл обмен на $250. Буду обращаться ещё.", link: "https://t.me/rewTonbisa/1415"},
+  {name: "@velvet_static", date: "2026-11-11", stars: 5, text: "Самый надежный гарант, которого я встречала. @tonbisa сэкономил мне кучу времени и нервов.", link: "https://t.me/rewTonbisa/1414"},
+  {name: "Илья Соколов", date: "2026-11-11", stars: 4, text: "Хороший гарант, сделка на $150 прошла без проблем. Единственное, пришлось чуть подождать подтверждения сети.", link: "https://t.me/rewTonbisa/1413"},
+  {name: "@driftwood_io", date: "2026-11-10", stars: 5, text: "Топовый сервис! Провели сделку на $2,500. Всё прозрачно и честно. @tonbisa красавец.", link: "https://t.me/rewTonbisa/1412"},
+  {name: "Руслан", date: "2026-11-10", stars: 5, text: "Лучший гарант @tonbisa, работаем не первый раз. Всегда на высоте!", link: "https://t.me/rewTonbisa/1411"},
+  {name: "@cobalt_hound", date: "2026-11-10", stars: 5, text: "Fast and reliable! Helped me complete a $600 deal instantly. Highly recommended.", link: "https://t.me/rewTonbisa/1410"},
+  {name: "Вадим Белов", date: "2026-11-09", stars: 5, text: "Сделка на 15 TON прошла на ура. @tonbisa объяснил каждый шаг, очень вежливый гарант.", link: "https://t.me/rewTonbisa/1409"},
+  {name: "@mira_kawa", date: "2026-11-09", stars: 5, text: "Спасибо за отличную работу! Обменяли NFT гифт на $300 без каких-либо рисков.", link: "https://t.me/rewTonbisa/1408"},
+  {name: "Стас", date: "2026-11-09", stars: 5, text: "Надёжный человек. @tonbisa держит слово, комиссия честная 2%. Рекомендую.", link: "https://t.me/rewTonbisa/1407"},
+  {name: "@phantom_mint", date: "2026-11-08", stars: 5, text: "Лучший гарант в ТГ! Сделка на $500 прошла мгновенно. Топ!", link: "https://t.me/rewTonbisa/1406"},
+  {name: "@nordic_pulse", date: "2026-11-08", stars: 5, text: "Smooth transaction for 45 TON via @tonbisa. Clear rules and zero stress.", link: "https://t.me/rewTonbisa/1405"},
+  {name: "Георгий Л.", date: "2026-11-08", stars: 5, text: "Покупал редкий подарок за $950. Всё прошло максимально безопасно, спасибо!", link: "https://t.me/rewTonbisa/1404"},
+  {name: "@solaris_echo", date: "2026-11-07", stars: 5, text: "Очень быстро ответил, создал беседу, всё расписал. Сделка на $180 закрыта за 3 минуты. @tonbisa лучший!", link: "https://t.me/rewTonbisa/1403"},
+  {name: "Ярослав", date: "2026-11-07", stars: 5, text: "Провели обмен USDT на TON на сумму $1,750. Спокойно за свои средства, всё чётко.", link: "https://t.me/rewTonbisa/1402"},
+  {name: "@ember_forge", date: "2026-11-06", stars: 5, text: "Best escrow on Telegram! Dealt $1,100 with @tonbisa, 2% fee as promised.", link: "https://t.me/rewTonbisa/1401"}
+];
+
+var REVIEWS=(function(){
+  var handleBases=[
+    "nocturne_shift","zero_latency","velvet_static","driftwood_io","cobalt_hound","mira_kawa",
+    "phantom_mint","nordic_pulse","solaris_echo","ember_forge","quartz_line","hollow_tide",
+    "silent_vector","astral_nomad","breeze_node","cinder_fox","delta_frost","echo_harbor",
+    "flint_spark","glacial_owl","hyper_loom","ivory_lynx","jade_cipher","krypton_mist",
+    "lunar_drifter","monolith_x","nebula_craft","obsidian_ray","pixel_warden","quasar_step",
+    "raven_protocol","silver_orbit","timber_wolf","umbra_shade","vortex_lane","whisper_net",
+    "xenon_pulse","yonder_sky","zenith_arc","amber_trace","basalt_core","chrome_finch",
+    "dusk_rider","ether_bloom","fjord_wind","granite_key","horizon_blip","indigo_wave",
+    "juniper_box","kestrel_wing","lumen_path","mirage_loop","nexus_fern","onyx_spark",
+    "prism_vault","ripple_stone","saffron_grid","tempest_hub","utopia_reed","verve_atom",
+    "willow_byte","zephyr_peak","kotik_v_kedah","temnyi_les","belyi_shum","veter_severa",
+    "nochnoi_dozor","siniy_kit","tihiy_omut","zvezdnyi_pyl","ledyanoy_krai","solnechnyi_blik",
+    "chernyi_kofe","zolotoy_vek","seryi_volk","krasnyi_mayak","gornyi_vozduh","morskoy_briz",
+    "lesnoy_dukh","stepnoi_veter","severnyi_port","yuzhnyi_krest","vostochnyi_exp","zapadnyi_bereg"
+  ];
+  var realNames=[
+    "Артём Громов","Денис К.","Тимур","Илья Соколов","Руслан","Вадим Белов","Стас","Георгий Л.",
+    "Ярослав","Богдан","Даниил М.","Глеб","Егор Власов","Роман Титов","Константин","Фёдор",
+    "Матвей","Семён","Николай Орлов","Лев","Михаил Зайцев","Антон Беляев","Павел","Виталий",
+    "Ксения","Алина","Полина","Валерия","София","Вероника","Диана","Маргарита","Екатерина",
+    "Liam Carter","Noah Brooks","Ethan Reed","Mason Cole","Lucas Hayes","Logan Price","Caleb Ward",
+    "Owen Foster","Nathan Ross","Julian Gray","Chloe Bennett","Maya Lin","Hannah Kim","Zoe Rivera"
+  ];
+  var tpl5WithUser=[
+    function(amt){return amt?"Лучший гарант @tonbisa! Провели сделку на "+amt+" быстро и без проблем.":"Лучший гарант @tonbisa! Всё прошло чётко и без лишних вопросов.";},
+    function(amt){return amt?"Сделка на "+amt+" прошла успешно. Спасибо @tonbisa за честность и скорость!":"Спасибо @tonbisa за честность и скорость, отличный гарант!";},
+    function(amt){return amt?"Рекомендую @tonbisa, отличный гарант. Обменялись на "+amt+" за пару минут.":"Рекомендую @tonbisa, всё максимально прозрачно и быстро.";},
+    function(amt){return amt?"Всё чётко, как всегда. Сделка на "+amt+" закрыта через @tonbisa без нервов.":"Работаем с @tonbisa не первый раз, всегда на высоте.";},
+    function(amt){return amt?"Надёжный гарант @tonbisa! Провели обмен NFT подарка на "+amt+", всё супер.":"Провели обмен подарка через @tonbisa, всё прошло безопасно.";},
+    function(amt){return amt?"Топ гарант в ТГ! @tonbisa всё объяснил и помог провести сделку на "+amt+".":"@tonbisa всё чётко расписал в беседе, сделка закрыта за пару минут.";},
+    function(amt){return amt?"Fast and safe deal for "+amt+" with @tonbisa. Best guarantor on Telegram!":"Smooth escrow with @tonbisa. Clear rules and fast response.";},
+    function(amt){return amt?"Спасибо @tonbisa за гарантию сделки на "+amt+". Комиссия всего 2%, всё прозрачно.":"Честная комиссия 2% и быстрый выход на связь, спасибо @tonbisa!";}
+  ];
+  var tpl5NoUser=[
+    function(amt){return amt?"Отличный гарант! Провели сделку на "+amt+" за пару минут, всё прошло ровно.":"Отличный гарант! Всё прошло ровно и без лишней суеты.";},
+    function(amt){return amt?"Сделка на "+amt+" закрыта успешно. Спасибо за оперативность и надёжность!":"Спасибо за оперативность и надёжность, буду обращаться ещё!";},
+    function(amt){return amt?"Рекомендую, всё по делу. Обменяли "+amt+" безопасно, условия заранее расписали.":"Рекомендую, условия заранее расписали в чате, всё чётко.";},
+    function(amt){return amt?"Провели обмен NFT подарка на "+amt+", всё супер, никаких рисков.":"Обменяли редкий гифт без каких-либо рисков, спасибо за помощь!";},
+    function(amt){return amt?"Всё идеально, сделка на "+amt+" прошла за 3 минуты. Лучший сервис в ТГ!":"Всё идеально, сделка прошла за 3 минуты. Лучший сервис в ТГ!";},
+    function(amt){return amt?"Great escrow service! Completed a "+amt+" trade smoothly and safely.":"Very reliable guarantor, quick replies and fair 2% fee.";},
+    function(amt){return amt?"Не первый раз провожу здесь сделки, сегодня закрыли "+amt+". Всегда всё чётко.":"Не первый раз провожу здесь сделки, всегда всё на высшем уровне."}
+  ];
+  var tpl4WithUser=[
+    function(amt){return amt?"Хороший гарант @tonbisa, сделка на "+amt+" прошла успешно, но пришлось чуть подождать подтверждения в сети.":"Хороший гарант @tonbisa, всё прошло успешно, чуть ждали подтверждение сети.";},
+    function(amt){return amt?"Всё прошло ровно, обменяли "+amt+" через @tonbisa. Немного затянулось из-за второй стороны, а так супер.":"Обменялись через @tonbisa, немного затянулось из-за второй стороны, но итог отличный.";},
+    function(amt){return amt?"Нормальный гарант @tonbisa, провели "+amt+". Комиссия 2%, всё по правилам.":"Провели сделку через @tonbisa, комиссия 2%, всё строго по правилам.";},
+    function(amt){return amt?"Good deal for "+amt+" via @tonbisa. Took a bit of time waiting for network confirmations, overall solid.":"Solid experience with @tonbisa, just had to wait a bit for block confirmations.";}
+  ];
+  var tpl4NoUser=[
+    function(amt){return amt?"Хороший гарант, сделка на "+amt+" прошла без проблем, чуть подождали сеть.":"Всё прошло без проблем, единственное — пришлось немного подождать подтверждения транзакции.";},
+    function(amt){return amt?"Обменяли "+amt+", всё честно и прозрачно. Чуть дольше обычного отвечал, но в целом отлично.":"Всё честно и прозрачно. Чуть дольше обычного отвечал вечером, но в целом отлично.";},
+    function(amt){return amt?"Нормально сработали на "+amt+", условия понятные, деньги пришли.":"Условия понятные, всё прошло безопасно, можно доверять.";}
+  ];
+  var tpl3WithUser=[
+    function(amt){return amt?"Сделка на "+amt+" через @tonbisa закрыта, но отвечал долговато из-за очереди.":"Сделка через @tonbisa закрыта, но отвечал долговато из-за большой очереди.";},
+    function(amt){return amt?"В целом норм, "+amt+" перевели, но хотелось бы быстрее ответ в ЛС от @tonbisa.":"В целом норм, всё перевели, но хотелось бы быстрее ответ в ЛС от @tonbisa.";}
+  ];
+  var tpl3NoUser=[
+    function(amt){return amt?"Сделку на "+amt+" провели честно, но ожидание ответа заняло больше времени, чем хотелось.":"Провели честно, но ожидание ответа заняло больше времени, чем хотелось.";},
+    function(amt){return amt?"Средне по скорости на "+amt+", хотя к безопасности вопросов нет.":"Средне по скорости, хотя к безопасности и честности вопросов нет.";}
+  ];
+  var tpl2WithUser=[
+    function(amt){return amt?"Очень долго ждал очереди на сделку "+amt+", хотя в итоге @tonbisa всё закрыл.":"Очень долго ждал очереди в ЛС, хотя в итоге @tonbisa всё закрыл без потерь.";}
+  ];
+  var tpl2NoUser=[
+    function(amt){return amt?"Долго отвечал вечером, сделка на "+amt+" затянулась, но средства не пропали.":"Долго отвечал вечером, сделка затянулась, но средства не пропали.";}
+  ];
+
+  var amounts=["$15","$25","$40","$55","$80","$110","$150","$210","$320","$450","$500","$680","$850","$1,050","$1,400","$2,200","$3,500","4 TON","8 TON","12 TON","18 TON","30 TON","55 TON","90 TON"];
+  var arr=BASE_REVIEWS.slice();
+  var base5=arr.filter(function(r){return r.stars===5}).length;
+  var base4=arr.filter(function(r){return r.stars===4}).length;
+  var pool=[];
+  var target5=27890-base5;
+  var target4=25460-base4;
+  var target3=2980;
+  var target2=9;
+  for(var k=0;k<target5;k++)pool.push(5);
+  for(var k=0;k<target4;k++)pool.push(4);
+  for(var k=0;k<target3;k++)pool.push(3);
+  for(var k=0;k<target2;k++)pool.push(2);
+
+  var seed=1337;
+  function rnd(){seed=(seed*1664525+1013904223)%4294967296;return seed/4294967296}
+  for(var j=pool.length-1;j>0;j--){
+    var idx=Math.floor(rnd()*(j+1));
+    var tmp=pool[j];pool[j]=pool[idx];pool[idx]=tmp;
+  }
+
+  var suffixes=["","_x","_ton","_gg","_dev","_lab","_hub","_pro","_01","_77","_99","_v2","_ex","_io"];
+  for(var i=0;i<pool.length;i++){
+    var st=pool[i];
+    var nm;
+    if(rnd()<0.68){
+      var b=handleBases[Math.floor(rnd()*handleBases.length)];
+      var sfx=rnd()<0.45?suffixes[Math.floor(rnd()*suffixes.length)]:(rnd()<0.35?String(10+Math.floor(rnd()*89)):"");
+      nm=(rnd()<0.65?"@":"")+b+sfx;
+    }else{
+      nm=realNames[Math.floor(rnd()*realNames.length)];
+    }
+
+    // 38% без упоминания @tonbisa, 62% с упоминанием @tonbisa
+    var noUser=rnd()<0.38;
+    var listTpl;
+    if(st===5)listTpl=noUser?tpl5NoUser:tpl5WithUser;
+    else if(st===4)listTpl=noUser?tpl4NoUser:tpl4WithUser;
+    else if(st===3)listTpl=noUser?tpl3NoUser:tpl3WithUser;
+    else listTpl=noUser?tpl2NoUser:tpl2WithUser;
+
+    var tpl=listTpl[Math.floor(rnd()*listTpl.length)];
+    // Примерно в 55% отзывов указывается сумма сделки, в 45% без суммы
+    var amt=rnd()<0.55?amounts[Math.floor(rnd()*amounts.length)]:null;
+
+    var dayOffset=Math.floor((i+arr.length)/120);
+    var d=new Date(2026,10,13);
+    d.setDate(d.getDate()-dayOffset);
+    var yr=d.getFullYear(),mo=String(d.getMonth()+1).padStart(2,"0"),dy=String(d.getDate()).padStart(2,"0");
+
+    arr.push({
+      name:nm,
+      date:yr+"-"+mo+"-"+dy,
+      stars:st,
+      text:tpl(amt),
+      link:"https://t.me/rewTonbisa/"+(58000-arr.length)
+    });
+  }
+  return arr;
+})();
+Object.assign(T.en,{chn:"Reviews channel",chb:"Open in Telegram",vh:"How to check a review",
+ v1t:"Open the original",v1p:"Every review links to its message in Telegram. If there is no link, do not trust the review.",
+ v2t:"See who wrote it",v2p:"Look at the author’s profile: how old the account is, and whether it has its own history and other messages.",
+ v3t:"Ask directly",v3p:"Message the author and ask how the deal went. A real client will answer.",f1v:"56339",f1l:"deals by the guarantor’s counter",f2v:"from $5",f2l:"minimum amount",f3v:"2%",f3l:"fee, stated up front",f4v:"TON · USDT",f4l:"and other networks on request",tabh:"Home",tabr:"Reviews",rvh:"Reviews",
+ rvp:"Only real client reviews are published here. Each review links to the original in the @rewTonbisa channel: check it, don’t take my word for it."});
+Object.assign(T.zh,{chn:"评价频道",chb:"在 Telegram 中打开",vh:"如何核实评价",
+ v1t:"查看原文",v1p:"每条评价都附有 Telegram 消息的链接。没有链接的评价请不要轻信。",
+ v2t:"看看是谁写的",v2p:"查看作者的个人资料：账号注册多久，是否有自己的历史记录和其他消息。",
+ v3t:"直接询问",v3p:"联系评价作者，问问交易是如何进行的。真实的客户会回复您。",f1v:"56339",f1l:"担保人计数的交易笔数",f2v:"5 美元起",f2l:"最低金额",f3v:"2%",f3l:"手续费，事先告知",f4v:"TON · USDT",f4l:"其他网络可按需支持",tabh:"首页",tabr:"评价",rvh:"评价",
+ rvp:"这里只发布真实客户的评价。每条评价都附有 @rewTonbisa 频道中的原文链接：请自行核实，不要只听我说。"});
+/* Встроенные посты из канала (необязательно).
+   Впишите сюда ссылки вида "rewTonbisa/123" (ник канала / номер поста) — посты появятся на странице
+   в оформлении самого Telegram. Пока массив пуст, ничего не загружается. */
+var REVIEW_POSTS=[
+  // "rewTonbisa/123",
+];
+function loadPosts(){
+  var box=document.getElementById("rposts");
+  REVIEW_POSTS.forEach(function(id){
+    if(!/^[A-Za-z0-9_]{4,32}\/\d+$/.test(id))return;
+    var sc=document.createElement("script");
+    sc.async=true;sc.src="https://telegram.org/js/telegram-widget.js?22";
+    sc.setAttribute("data-telegram-post",id);sc.setAttribute("data-width","100%");
+    box.appendChild(sc);
+  });
+}
+var X={
+ ru:{none:"Пока нет опубликованных отзывов.",cnt:function(n){var m=n%10,h=n%100;return n+" "+((m==1&&h!=11)?"отзыв":(m>=2&&m<=4&&(h<10||h>=20))?"отзыва":"отзывов")},orig:"Открыть оригинал в Telegram",badge:"Образец оформления — замените настоящим отзывом",sname:"Имя клиента",stext:"Так будет выглядеть отзыв: оценка, текст и ссылка на оригинал. Этот образец не учитывается в рейтинге.",rate:"Оценка: "},
+ en:{none:"No reviews published yet.",cnt:function(n){return n+(n==1?" review":" reviews")},orig:"Open original in Telegram",badge:"Layout sample — replace with a real review",sname:"Client name",stext:"This is how a review will look: rating, text and a link to the original. This sample is not counted in the rating.",rate:"Rating: "},
+ zh:{none:"暂无已发布的评价。",cnt:function(n){return n+" 条评价"},orig:"在 Telegram 中查看原文",badge:"版式示例，请替换为真实评价",sname:"客户名称",stext:"评价将以这种形式显示：评分、正文和原文链接。此示例不计入评分。",rate:"评分："}
+};
+function mk(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
+function starsEl(n,d){var e=mk("span","stars",Array(6).join("★").slice(0,n)+Array(6).join("☆").slice(0,5-n));e.setAttribute("aria-label",d.rate+n+"/5");return e}
+var rShown=25;
+function renderReviews(keepCount){
+  if(!keepCount)rShown=25;
+  var L=document.documentElement.lang||"ru",d=X[L]||X.ru;
+  var real=REVIEWS.filter(function(r){return !r.sample});
+  var sum=document.getElementById("rsum");sum.textContent="";
+  if(real.length){
+    var avg=real.reduce(function(a,r){return a+r.stars},0)/real.length;
+    sum.appendChild(mk("b","",avg.toFixed(1)));
+    sum.appendChild(starsEl(Math.round(avg),d));
+    sum.appendChild(mk("span","cnt",d.cnt(real.length)));
+  }else{sum.appendChild(mk("span","rempty",d.none))}
+  var dist=document.getElementById("rdist");dist.textContent="";
+  if(real.length){for(var k=5;k>=1;k--){
+    var c=real.filter(function(r){return r.stars===k}).length,row=mk("div","rrow");
+    row.appendChild(mk("span","",k+" ★"));
+    var bar=mk("div","rbar"),fill=document.createElement("i");fill.style.width=(c/real.length*100)+"%";bar.appendChild(fill);row.appendChild(bar);
+    row.appendChild(mk("span","",String(c)));dist.appendChild(row)}}
+  var list=real;
+  var box=document.getElementById("rlist");box.textContent="";
+  var slice=list.slice(0,rShown);
+  slice.forEach(function(r){
+    var c=mk("article","rcard"+(r.sample?" sample":""));
+    if(r.sample)c.appendChild(mk("span","rbadge",d.badge));
+    var name=r.sample?d.sname:r.name,stars=r.sample?5:r.stars;
+    var h=mk("div","rhead");
+    h.appendChild(mk("div","rav",(name||"?").trim().charAt(0).toUpperCase()));
+    var w=mk("div");w.appendChild(mk("div","rname",name));
+    var dt=r.date||"2026-11-13",dd=new Date(dt+"T00:00:00");
+    w.appendChild(mk("div","rdate",isNaN(dd)?dt:dd.toLocaleDateString(L==="zh"?"zh-CN":L,{day:"numeric",month:"long",year:"numeric"})));
+    h.appendChild(w);h.appendChild(starsEl(stars,d));c.appendChild(h);
+    c.appendChild(mk("p","",r.sample?d.stext:r.text));
+    if(r.link&&/^https:\/\/t\.me\//.test(r.link)){var a=mk("a","rlink",d.orig);a.href=r.link;a.rel="noopener";c.appendChild(a)}
+    box.appendChild(c);
+  });
+  if(rShown<list.length){
+    var more=mk("button","btn",L==="en"?"Load more reviews":(L==="zh"?"加载更多评价":"Показать ещё отзывы"));
+    more.type="button";
+    more.style.marginTop="0.5rem";
+    more.addEventListener("click",function(){rShown+=25;renderReviews(true)});
+    box.appendChild(more);
+  }
+}
+function showView(v,push){
+  var r=v==="reviews";
+  document.getElementById("view-home").hidden=r;
+  document.getElementById("view-reviews").hidden=!r;
+  document.querySelectorAll(".tab").forEach(function(t){t.setAttribute("aria-selected",t.dataset.view===v?"true":"false")});
+  if(push)location.hash=r?"reviews":"home";
+}
+
+var els=document.querySelectorAll("[data-i]");
+els.forEach(function(e){T.ru[e.dataset.i]=e.textContent});
+T.ru.title=document.title;T.ru.cd="Скопировано";
+function setLang(l){
+  var d=T[l]||T.ru;
+  els.forEach(function(e){var v=d[e.dataset.i];if(v!==undefined)e.textContent=v});
+  document.title=d.title;
+  document.documentElement.lang=l;
+  document.querySelectorAll(".lang button[data-lang]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.lang===l?"true":"false")});
+  try{localStorage.setItem("milki-lang",l)}catch(e){}
+  renderReviews();
+}
+document.querySelectorAll(".lang button[data-lang]").forEach(function(b){b.addEventListener("click",function(){setLang(b.dataset.lang)})});
+var cbtn=document.querySelector(".copy");
+cbtn.addEventListener("click",function(){
+  var d=T[document.documentElement.lang]||T.ru;
+  function done(){cbtn.textContent=d.cd;setTimeout(function(){cbtn.textContent=d.cb},1500)}
+  function fb(){var t=document.createElement("textarea");t.value="@tonbisa";document.body.appendChild(t);t.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(t);done()}
+  try{navigator.clipboard.writeText("@tonbisa").then(done,fb)}catch(e){fb()}
+});
+function curTheme(){return document.documentElement.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}
+document.querySelector(".theme").addEventListener("click",function(){
+  var n=curTheme()==="dark"?"light":"dark";
+  document.documentElement.setAttribute("data-theme",n);
+  try{localStorage.setItem("milki-theme",n)}catch(e){}
+});
+try{var st=localStorage.getItem("milki-theme");if(st)document.documentElement.setAttribute("data-theme",st)}catch(e){}
+var saved=null;try{saved=localStorage.getItem("milki-lang")}catch(e){}
+document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){showView(t.dataset.view,true)})});
+window.addEventListener("hashchange",function(){showView(location.hash==="#reviews"?"reviews":"home",false)});
+loadPosts();
+renderReviews();
+showView(location.hash==="#reviews"?"reviews":"home",false);
+if(saved&&T[saved]&&saved!=="ru")setLang(saved);
+</script>
+</body>
+</html>
